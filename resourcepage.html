@@ -1,59 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Implicit Bias Resources | Your Website Name</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+/* ==================== CSS VARIABLES ==================== */
+:root {
+    --primary: #648FFF;     /* Bright accessible blue */
+    --accent: #FE6100;      /* Strong orange */
+    --dark: #1E2937;        /* Dark slate header */
+    --light: #F8FAFC;
+    --gray: #E2E8F0;
+}
 
-    <link rel="stylesheet" href="stylepage.css">
-</head>
-<body>
-    <!-- Top-left hamburger dropdown menu -->
-        <nav class="dropdown-nav">
-            <input type="checkbox" id="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            <ul class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
-                <li><a href="resourcepage.html">Implicit Bias Resources</a></li>
-                <li><a href="techhero.html">Tech Hero Profile</a></li>
-            </ul>
-        </nav>
-    <header>
-        <h1>Implicit Bias Resources</h1>
-    </header>
-    <section id="resources">
-        <h2>What is Implicit Bias?</h2>
-        <p>Implicit bias refers to the attitudes or stereotypes that influence our understanding, actions, and decisions in an unconscious manner. These biases, which we hold towards certain groups of people, can influence how we perceive others based on their race, gender, age, religion, and other characteristics. Implicit biases are formed over time through our experiences and societal influences, and they can be at odds with our conscious beliefs. Unlike explicit biases, which we are aware of, implicit biases operate below our level of awareness.</p>
-        
-        <h3>Intersectionality: A Key Concept in Understanding Implicit Bias</h3>
-        <p>The term "intersectionality" was coined by Kimberlé Crenshaw to describe the ways in which various forms of social stratification, such as race, gender, class, and other aspects of identity, intersect and create unique systems of oppression or privilege. In the context of implicit bias, intersectionality helps us understand how a person’s identity can be influenced by multiple factors, such as being a woman of color, or a low-income immigrant. These intersections create compounded biases that cannot be understood by examining only one aspect of a person’s identity. For example, biases against Black women are not simply the sum of biases against Black people and biases against women, they are uniquely shaped by the combination of race and gender.</p>
-        
-        <h3>Understanding the Asian-European American Implicit Association Test (IAT)</h3>
-        <p>The <a href="https://implicit.harvard.edu/implicit/takeatest.html" target="_blank">Harvard Implicit Association Test (IAT)</a> is a tool designed to measure the strength of automatic associations people have between different concepts, such as race or gender. The Asian-European American IAT measures implicit bias related to attitudes towards individuals of Asian and European American descent. The test asks participants to quickly associate words related to each group with positive and negative attributes.</p>
+/* ==================== GENERAL STYLES ==================== */
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light);
+    line-height: 1.6;
+    color: #333;
+}
 
-        <p>Research using the Asian-European American IAT has found that many participants, regardless of their own race, tend to show implicit bias favoring European Americans over Asian Americans. This bias can be influenced by societal stereotypes that link European Americans with traits like success, leadership, and competence, while Asian Americans are often stereotyped as 'model minorities,' quiet, hardworking, and obedient. While this stereotype may seem positive on the surface, it can perpetuate harmful assumptions and limit the full recognition of the diversity and complexity within Asian American communities.</p>
+h1, h2, h3 {
+    color: var(--dark);
+    font-weight: 700;
+}
 
-        <h3>What Does This Test Reveal About Us?</h3>
-        <p>The results of the Asian-European American IAT and other similar tests show how deep-rooted and pervasive implicit biases can be. They highlight how even well-intentioned individuals can have biases that affect their thoughts and actions in ways they may not be aware of. Importantly, these tests provide a window into how societal narratives and stereotypes shape our perceptions of different racial and ethnic groups. Acknowledging and reflecting on our own biases is an essential step towards reducing their impact.</p>
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
 
-        <h3>Learn More</h3>
-        <ul>
-            <li><a href="https://www.tolerance.org/professional-development/implicit-bias" target="_blank">Teaching Tolerance - Understanding Implicit Bias</a></li>
-            <li><a href="https://www.psychologytoday.com/us/basics/implicit-bias" target="_blank">Psychology Today - Implicit Bias</a></li>
-            <li><a href="https://implicit.harvard.edu/implicit/takeatest.html" target="_blank">Harvard IAT - Take the Implicit Association Test</a></li>
-            <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597104/" target="_blank">National Center for Biotechnology Information - Implicit Bias Review</a></li>
-            <li><a href="https://www.thetechedvocate.org/understanding-implicit-bias-teachers/" target="_blank">The Tech Edvocate - Understanding Implicit Bias in Education</a></li>
-            <li><a href="https://www.jstor.org/stable/26914292" target="_blank">JSTOR - Intersectionality and Implicit Bias</a></li>
-        </ul>
+a:hover {
+    color: var(--accent);
+}
 
-    </section>
+/* ==================== HEADER ==================== */
+header {
+    background: linear-gradient(135deg, var(--primary), #1f7a6e);
+    color: white;
+    padding: 70px 30px 50px;   /* improved top/bottom spacing */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.8rem;
+    margin: 0 0 10px 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==================== TOP-LEFT HAMBURGER MENU ==================== */
+.dropdown-nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+#menu-toggle { display: none; }
+
+.hamburger {
+    width: 28px;
+    cursor: pointer;
+    display: block;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0 0;
+    width: 220px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    display: none;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.menu li { border-bottom: 1px solid var(--gray); }
+.menu li:last-child { border-bottom: none; }
+
+.menu li a {
+    display: block;
+    padding: 14px 20px;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.menu li a:hover {
+    background-color: #f8f8f8;
+    padding-left: 25px;
+}
+
+#menu-toggle:checked + .hamburger + .menu {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#menu-toggle:checked + .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+#menu-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; }
+#menu-toggle:checked + .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ==================== IMPROVED GLOBAL PADDING & MARGINS ==================== */
+/* Centers content and adds side padding on wide screens */
+.container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* All main content sections now get automatic centering + generous padding */
+section {
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 45px 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+}
+
+/* Hero cards (used on techhero.html) stay nicely spaced inside the section */
+.hero {
+    max-width: 100%;
+    margin-bottom: 40px;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.hero-text { flex: 1; min-width: 280px; }
+.hero-image { flex: 0 0 180px; }
+
+.about-me{
+   max-width: 100%;
+    margin-bottom: 40px;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+.about-me-text { flex: 1; min-width: 280px; }
+
+.hero-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 80px;
+}
+
+/* ==================== RESPONSIVE (mobile-first improvements) ==================== */
+@media (max-width: 768px) {
+    header { padding: 80px 20px 50px; }
+    header h1 { font-size: 2.2rem; }
     
-
-</body>
-</html>
+    section, .hero {
+        margin: 25px 10px;
+        padding: 35px 25px;
+    }
+    
+    .hero { flex-direction: column; }
+    .hero-image { margin: 0 auto; max-width: 220px; }
+}
+/* ====================== CENTERED IMAGE ====================== */
+.center-image {
+    display: block;
+    margin: 40px auto;          /* centers it + nice breathing room */
+    max-width: 100%;            /* never overflows on mobile */
+    height: auto;
+    border-radius: 12px;        /* matches your card style */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);   /* subtle shadow like your heroes */
+}
