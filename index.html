@@ -4,25 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome | Your Website Name</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    <!-- In the <head> of EVERY HTML file, replace the Roboto link with: -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylepage.css">
 </head>
 <body>
-    
     <header>
-        <h1>Welcome to My Website!</h1>
-        <p>This is the splash page of my personal website.</p>
+        <h1>LIS 500 Project #2</h1>
+        <p>Developing Projects Website</p>
+        <!-- Top-left hamburger dropdown menu -->
+        <nav class="dropdown-nav">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="resourcepage.html">Implicit Bias Resources</a></li>
+                <li><a href="techhero.html">Tech Hero Profile</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <li><a href="aboutme.html">About Me</a></li>
-            <li><a href="resourcepage.html">Implicit Bias Resources</a></li>
-            <li><a href="techhero.html">Tech Hero Profile</a></li>
-        </ul>
-    </nav>
-    <footer>
-        <p>Created by Max Christie.</p>
-    </footer>
+
+    <img src="images/Implicit-bias-600.jpg" alt="Implicit Bias" class="center-image">
 </body>
 </html>
