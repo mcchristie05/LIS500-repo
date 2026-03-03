@@ -1,4 +1,5 @@
 /* ==================== CSS VARIABLES ==================== */
+/* Defines color variables for consistent theme usage */
 :root {
     --primary: #648FFF;     /* Bright accessible blue */
     --accent: #FE6100;      /* Strong orange */
@@ -8,6 +9,7 @@
 }
 
 /* ==================== GENERAL STYLES ==================== */
+/* Base styles for body, headings, and links */
 body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
@@ -32,6 +34,7 @@ a:hover {
 }
 
 /* ==================== HEADER ==================== */
+/* Styles for the page header */
 header {
     background: linear-gradient(135deg, var(--primary), #1f7a6e);
     color: white;
@@ -54,6 +57,7 @@ header p {
 }
 
 /* ==================== TOP-LEFT HAMBURGER MENU ==================== */
+/* Styles for the dropdown navigation menu */
 .dropdown-nav {
     position: fixed;
     top: 20px;
@@ -154,6 +158,7 @@ section {
     gap: 30px;
     align-items: flex-start;
     box-sizing: border-box;
+    position: relative;  /* Added for absolute positioning of credit */
 }
 
 .hero-text { flex: 1; min-width: 280px; }
@@ -196,16 +201,8 @@ section {
     transform: translateY(-2px);
 }
 
-/* ==================== FOOTER ==================== */
-footer {
-    background: var(--dark);
-    color: white;
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 80px;
-}
-
 /* ==================== RESPONSIVE (mobile-first improvements) ==================== */
+/* Media queries for responsive design */
 @media (max-width: 768px) {
     header { padding: 80px 20px 50px; }
     header h1 { font-size: 2.2rem; }
@@ -219,6 +216,7 @@ footer {
     .hero-image { margin: 0 auto; max-width: 220px; }
 }
 /* ====================== CENTERED IMAGE ====================== */
+/* Styles for centered images */
 .center-image {
     display: block;
     margin: 40px auto;          /* centers it + nice breathing room */
@@ -226,4 +224,122 @@ footer {
     height: auto;
     border-radius: 12px;        /* matches your card style */
     box-shadow: 0 6px 20px rgba(0,0,0,0.08);   /* subtle shadow like your heroes */
+}
+
+/* Stylish Credit Byline */
+/* Styles for credit text */
+.credit {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #64748b;  /* Muted for subtlety */
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.credit:hover {
+    opacity: 1;  /* Subtle hover reveal for interactivity */
+}
+/* Hero Splash Section */
+/* Styles for the hero splash section */
+.hero-splash {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/pexels-divinetechygirl-1181738.jpg') center/cover no-repeat;  /* Changed to local image for reliability */
+    padding: 80px 30px;
+    text-align: center;
+    color: white;
+    animation: fadeIn 1.5s ease-in;  /* CSS animation for interactivity */
+}
+
+.hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.hero-splash h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #FFFFFF;
+}
+
+.hero-splash p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Teaser Cards for Content Preview */
+/* Styles for teaser cards */
+.teasers {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.teaser-card {
+    flex: 1 1 300px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.teaser-card:hover {
+    transform: translateY(-5px);
+}
+
+.teaser-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.teaser-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Responsive Adjustments */
+/* Additional media queries for specific elements */
+@media (max-width: 768px) {
+    .hero-splash { padding: 60px 20px; }
+    .hero-splash h2 { font-size: 2rem; }
+    .teasers { flex-direction: column; gap: 30px; }
+}
+
+/* Video Teaser Wrapper for Responsive Aspect Ratio */
+/* Styles for video wrappers */
+.video-wrapper {
+    position: relative;
+    max-width: 800px;  /* Increased max-width for expansion */
+    margin: 30px auto;
+    padding-bottom: 56.25%;  /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    display: block;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+/* Accessibility focus styles */
+a:focus, .hamburger:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
