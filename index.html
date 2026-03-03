@@ -1,34 +1,64 @@
 <!DOCTYPE html>
+<!-- Start of HTML document structure -->
 <html lang="en">
 <head>
+    <!-- Metadata and external resources -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome | Your Website Name</title>
-    <!-- In the <head> of EVERY HTML file, replace the Roboto link with: -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>LIS 500 Project #2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylepage.css">
 </head>
 <body>
+    <!-- Page header -->
     <header>
         <h1>LIS 500 Project #2</h1>
         <p>Developing Projects Website</p>
-        <!-- Top-left hamburger dropdown menu -->
-        <nav class="dropdown-nav">
+        <!-- Navigation menu -->
+        <nav class="dropdown-nav" role="navigation" aria-label="Main menu">
             <input type="checkbox" id="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <label for="menu-toggle" class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </label>
-            <ul class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
-                <li><a href="resourcepage.html">Implicit Bias Resources</a></li>
-                <li><a href="techhero.html">Tech Hero Profile</a></li>
+            <ul class="menu" id="menu" role="menu">
+                <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+                <li role="none"><a href="aboutme.html" role="menuitem">About Us</a></li>
+                <li role="none"><a href="resourcepage.html" role="menuitem">Implicit Bias Resources</a></li>
+                <li role="none"><a href="techhero.html" role="menuitem">Tech Hero Profile</a></li>
             </ul>
         </nav>
     </header>
-
-    <img src="images/Implicit-bias-600.jpg" alt="Implicit Bias" class="center-image">
+    <!-- Hero splash section -->
+    <section class="hero-splash">
+        <div class="hero-content">
+            <h2>Exploring Inclusive Tech, Bias & Design</h2>
+            <a href="resourcepage.html" class="btn" aria-label="Go to Implicit Bias Resources">Start with Resources</a>
+        </div>
+    </section>
+    <!-- Teaser cards section -->
+    <div class="teasers container">
+        <!-- Teaser card -->
+        <div class="teaser-card">
+            <h3>About Us</h3>
+            <p>Meet the team behind this project.</p>
+            <a href="aboutme.html" class="btn">Read More</a>
+        </div>
+        <!-- Teaser card -->
+        <div class="teaser-card">
+            <h3>Implicit Bias Guide</h3>
+            <p>Learn about biases, intersectionality, and the IAT test.</p>
+            <a href="resourcepage.html" class="btn">Explore</a>
+        </div>
+        <!-- Teaser card -->
+        <div class="teaser-card">
+            <h3>Tech Heroes</h3>
+            <p>Profiles of equity leaders in tech.</p>
+            <a href="techhero.html" class="btn">Discover</a>
+        </div>
+    </div>
+    <!-- Centered image -->
+    <img src="images/pexels-divinetechygirl-1181224.jpg" alt="Diverse Tech" class="center-image">
 </body>
 </html>
