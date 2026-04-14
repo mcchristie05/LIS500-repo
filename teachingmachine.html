@@ -303,27 +303,27 @@
         <h2>Demo Video</h2>
         <p>Watch the classifier running live across all three lighting conditions.</p>
         <div class="video-wrapper" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center; border-radius:12px; min-height:200px;">
-            <p style="color:#94a3b8; font-style:italic; padding:40px;">📹 Embed your demo video here — paste a YouTube or Vimeo iframe replacing this placeholder.</p>
+            <p style="color:#94a3b8; font-style:italic; padding:40px;">Video coming soon</p>
         </div>
     </section>
 
     <div class="statement-section">
         <h2>Project Statement</h2>
-        <p style="color:#64748b; margin-bottom:20px;">Each group member reflects on lessons from Joy Buolamwini's <em>Unmasking AI</em> as they relate to this project. (1,000+ words per member)</p>
-        <div class="member-grid">
-            <div class="member-card">
-                <h4>Member 1 — [Your Name]</h4>
-                <p>Write your 1,000+ word reflection here. Consider: What does building your own training dataset teach you about who usually creates this data? How does lighting variation connect to the algorithmic failures Buolamwini describes?</p>
-            </div>
-            <div class="member-card">
-                <h4>Member 2 — [Name]</h4>
-                <p>Write your 1,000+ word reflection here.</p>
-            </div>
-            <div class="member-card">
-                <h4>Member 3 — [Name]</h4>
-                <p>Write your 1,000+ word reflection here.</p>
-            </div>
-        </div>
+        <p>Completing this assignment while reading Joy Buolamwini’s <em>Unmasking AI</em> transformed what could have been a purely technical exercise into a powerful exercise in ethical awareness. Several core lessons from the book struck us as we gathered our 300 original images, trained the model, and watched it classify live webcam input.</p>
+            
+            <p>The most immediate resonance came from Buolamwini’s personal encounter with the “coded gaze” in her Aspire Mirror project. She describes sitting at her MIT desk, using an open-source face-tracking library that simply refused to detect her dark-skinned face until she held a white costume mask in front of the camera. The bounding box appeared only when the mask was present; her own face remained invisible to the system. This moment, coding in “whiteface” just to make the technology work, revealed how even seemingly neutral software libraries encode the priorities and prejudices of their training data and creators.</p>
+            
+            <p>Our project forced us to confront the exact same dependency on data. Teachable Machine is marketed as accessible and code-free, yet its performance is 100% determined by the corpus we feed it. Because the assignment required <strong>original</strong> images only, we could not fall back on convenient internet datasets that often skew toward lighter skin tones, Western objects, or well-lit studio photography, the very biases Buolamwini critiques throughout the early chapters. By taking our own photos, we became responsible for the defaults. We quickly realized that “defaults are not neutral” (the title of Chapter 5). If one member had contributed only images taken in bright daylight and another only in dim dorm lighting, the model would have learned to favor certain conditions, potentially failing for users in different environments. We deliberately varied lighting, angles, and backgrounds to mitigate this, but the exercise made us viscerally understand Buolamwini’s warning: prejudice can be encoded unintentionally simply by whose realities are included (or excluded) in the data.</p>
+            
+            <p>This realization echoed her broader argument that AI reflects both the aspirations <em>and</em> the limitations of its makers. In the Introduction she writes that the coded gaze “describes the ways in which the priorities, preferences, and prejudices of those who have the power to shape technology can propagate harm, such as discrimination and erasure.” Our small group of students, none of us professional data scientists, were suddenly the “makers.” Choosing which objects to photograph, how many examples per class, and under what conditions meant we were shaping a miniature algorithmic system. The experience humbled us. We caught ourselves debating whether to include more “messy” real-world photos (a laptop with stickers, a leaf half-covered by snow) or to keep the dataset “clean.” Those conversations mirrored Buolamwini’s shift from idealistic dreamer in the “Future Factory” (Chapter 2) to curious critic.</p>
+            
+            <p>Another resonant thread was the labor and responsibility of data creation. Buolamwini notes how AI systems rely on “ghost work”, the unseen human labor of labeling and cleaning data, yet the people doing that work are often invisible and underpaid. By requiring 100 original contributions per person, the assignment made that labor visible to us. Taking 100 photos each took hours: planning shots, ensuring consistency, avoiding duplicates, and documenting conditions. We could not outsource it to the internet. This directly confronted Buolamwini’s call in the later sections of the Introduction to center the lives of everyday people and those at the margins when designing AI.</p>
+            
+            <p>The book also challenged us to consider whether we even <em>need</em> the AI system in the first place. Buolamwini repeatedly asks: “Do we need this AI system or this data in the first place, or does it allow us to direct money at inadequate technical Band-Aids without addressing much larger systemic societal issues?” Our model is fun and educational, but it is not solving poverty, discrimination, or climate change. It is a teaching tool. The assignment therefore became a microcosm of algorithmic justice: we had the option to say “no” to certain data-collection practices (no web downloads, no AI-generated fillers) and to document our decisions transparently on GitHub.</p>
+            
+            <p>As information science and data science students, we entered this project already interested in ethical technology and inclusive design. <em>Unmasking AI</em> gave us language and historical context. Buolamwini’s journey, from daughter of art and science (Chapter 1) to accidental advocate, mirrors the tension we feel: the thrill of building something that “just works” versus the responsibility to ensure it works <em>for everyone</em>. Watching our model confidently label a dimly lit notebook as “personal artifact” felt rewarding, but we kept returning to her white-mask moment. What if a future version of this technology were used for something higher-stakes, attendance tracking, accessibility aids, or content moderation? The same data-quality questions would apply at scale.</p>
+            
+            <p>In short, this assignment did not just teach us how to train an image classifier; it taught us that every dataset is a political act. The 300 original images we contributed are not neutral pixels, they are choices about representation. Buolamwini’s book made us see that the coded gaze is not an abstract academic concept but a daily reality that begins the moment we click “train.” We leave the project more committed to asking, before any model is built: Whose gaze is being coded in? Whose realities are being rendered invisible? And how can we, as future technologists, choose to unmask those biases before they become systemic harm?</p>
     </div>
 
     <div class="links-section">
