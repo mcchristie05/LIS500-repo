@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIS 500 Project #3 — Teachable Machines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylepage.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <style>
+        .classifier-section {
+            max-width: 1150px;
+            margin: 40px auto;
+            padding: 45px 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .classifier-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .classifier-section p.subtext {
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        #start-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+
+        #start-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        #webcam-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #webcam-container canvas {
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #label-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .label-row {
+            background: var(--gray);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .label-bar-wrap {
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 999px;
+            height: 8px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .label-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .dataset-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dataset-card {
+            flex: 1 1 250px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .dataset-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .dataset-card h4 {
+            font-size: 1.1rem;
+            margin: 0 0 6px 0;
+            color: var(--dark);
+        }
+
+        .dataset-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .statement-section {
+            max-width: 1150px;
+            margin: 40px auto;
+            padding: 45px 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+
+        .statement-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .links-section {
+            max-width: 1150px;
+            margin: 40px auto;
+            padding: 45px 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+
+        .links-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .link-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .link-row:last-child { border-bottom: none; }
+
+        .link-row .link-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+        .link-row a { color: var(--primary); font-weight: 500; }
+        .link-row a:hover { color: var(--accent); }
+
+        .placeholder-link { color: #94a3b8; font-style: italic; }
+
+        .member-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .member-card {
+            flex: 1 1 280px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .member-card h4 {
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            color: var(--dark);
+        }
+
+        .member-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .page-intro {
+            background: linear-gradient(135deg, #1E2937, #2d4a6e);
+            color: white;
+            padding: 60px 30px 50px;
+            text-align: center;
+        }
+
+        .page-intro h2 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .page-intro p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .notice {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 14px 20px;
+            color: #9a3412;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LIS 500 Project #3</h1>
+        <p>Teachable Machines — Lighting Condition Classifier</p>
+        <nav class="dropdown-nav" role="navigation" aria-label="Main menu">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </label>
+            <ul class="menu" id="menu" role="menu">
+                <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+                <li role="none"><a href="aboutme.html" role="menuitem">About Us</a></li>
+                <li role="none"><a href="resourcepage.html" role="menuitem">Implicit Bias Resources</a></li>
+                <li role="none"><a href="techhero.html" role="menuitem">Tech Hero Profile</a></li>
+                <li role="none"><a href="teachingmachine.html" role="menuitem">Teaching Machine</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-intro">
+        <h2>Can You Teach a Machine?</h2>
+        <p>A machine learning experiment classifying indoor lighting conditions — built with Google's Teachable Machine, TensorFlow.js, and 300 original images contributed by our group.</p>
+    </div>
+
+    <div class="classifier-section">
+        <h2>🔦 Live Lighting Classifier</h2>
+        <p class="subtext">Allow camera access, then click Start to run the model in real time.</p>
+        <button id="start-btn" onclick="init()">Start Classifier</button>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+    </div>
+
+    <section>
+        <h2>Our Dataset</h2>
+        <p>Each group member contributed 100 original photographs taken in their own space, for a total corpus of 300 images across three lighting condition classes. No images were downloaded from the web or AI-generated.</p>
+        <div class="dataset-grid">
+            <div class="dataset-card">
+                <div class="icon"></div>
+                <h4>Class 1 — Overhead + Lamp On</h4>
+                <p>Brightest condition. Both overhead light and lamp running simultaneously.</p>
+            </div>
+            <div class="dataset-card">
+                <div class="icon"></div>
+                <h4>Class 2 — Lamp Only</h4>
+                <p>Warm, directional light. Overhead off, lamp on. Most visually distinct class.</p>
+            </div>
+            <div class="dataset-card">
+                <div class="icon"></div>
+                <h4>Class 3 — Overhead Only</h4>
+                <p>Cool, flat light. Overhead on, lamp off. Subtler difference from Class 1.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Demo Video</h2>
+        <p>Watch the classifier running live across all three lighting conditions.</p>
+        <div class="video-wrapper" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center; border-radius:12px; min-height:200px;">
+            <p style="color:#94a3b8; font-style:italic; padding:40px;">📹 Embed your demo video here — paste a YouTube or Vimeo iframe replacing this placeholder.</p>
+        </div>
+    </section>
+
+    <div class="statement-section">
+        <h2>Project Statement</h2>
+        <p style="color:#64748b; margin-bottom:20px;">Each group member reflects on lessons from Joy Buolamwini's <em>Unmasking AI</em> as they relate to this project. (1,000+ words per member)</p>
+        <div class="member-grid">
+            <div class="member-card">
+                <h4>Member 1 — [Your Name]</h4>
+                <p>Write your 1,000+ word reflection here. Consider: What does building your own training dataset teach you about who usually creates this data? How does lighting variation connect to the algorithmic failures Buolamwini describes?</p>
+            </div>
+            <div class="member-card">
+                <h4>Member 2 — [Name]</h4>
+                <p>Write your 1,000+ word reflection here.</p>
+            </div>
+            <div class="member-card">
+                <h4>Member 3 — [Name]</h4>
+                <p>Write your 1,000+ word reflection here.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="links-section">
+        <h2>Links & References</h2>
+        <div class="link-row">
+            <span class="link-icon">🖼️</span>
+            <div>
+                <strong>Image Dataset</strong><br>
+                <span class="placeholder-link">[ Add your dataset link here ]</span>
+            </div>
+        </div>
+        <div class="link-row">
+            <span class="link-icon">🤖</span>
+            <div>
+                <strong>Teachable Machine</strong><br>
+                <a href="https://teachablemachine.withgoogle.com/" target="_blank">teachablemachine.withgoogle.com</a>
+            </div>
+        </div>
+        <div class="link-row">
+            <span class="link-icon"></span>
+            <div>
+                <strong>TensorFlow.js</strong><br>
+                <a href="https://www.tensorflow.org/js" target="_blank">tensorflow.org/js</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Teachable Machine Image Model — https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+        const URL = "https://teachablemachine.withgoogle.com/models/eGSKiv_X1/";
+
+        let model, webcam, labelContainer, maxPredictions;
+
+        // Load the image model and set up the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            try {
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                // Flip the webcam horizontally (mirror view)
+                const flip = true;
+                webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
+                await webcam.setup(); // request webcam access
+                await webcam.play();
+                window.requestAnimationFrame(loop);
+
+                // Append webcam canvas to the DOM
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+
+                // Build styled label rows with progress bars
+                labelContainer = document.getElementById("label-container");
+                labelContainer.innerHTML = "";
+                for (let i = 0; i < maxPredictions; i++) {
+                    const row = document.createElement("div");
+                    row.className = "label-row";
+                    row.style.flexDirection = "column";
+                    row.style.alignItems = "flex-start";
+
+                    const nameSpan = document.createElement("span");
+                    nameSpan.id = "label-name-" + i;
+                    nameSpan.textContent = "Class " + (i + 1);
+
+                    const barWrap = document.createElement("div");
+                    barWrap.className = "label-bar-wrap";
+                    barWrap.style.width = "100%";
+
+                    const bar = document.createElement("div");
+                    bar.className = "label-bar";
+                    bar.id = "label-bar-" + i;
+                    bar.style.width = "0%";
+
+                    barWrap.appendChild(bar);
+                    row.appendChild(nameSpan);
+                    row.appendChild(barWrap);
+                    labelContainer.appendChild(row);
+                }
+
+                document.getElementById("start-btn").style.display = "none";
+
+            } catch (err) {
+                alert("Could not load model. Check the model URL or your internet connection.");
+                console.error(err);
+            }
+        }
+
+        // Update webcam frame and run prediction on each animation frame
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+
+        // Run the webcam image through the image model
+        async function predict() {
+            // predict() accepts an image, video, or canvas element
+            const prediction = await model.predict(webcam.canvas);
+            for (let i = 0; i < maxPredictions; i++) {
+                const pct = (prediction[i].probability * 100).toFixed(1);
+                const nameEl = document.getElementById("label-name-" + i);
+                const barEl = document.getElementById("label-bar-" + i);
+                if (nameEl) nameEl.textContent = prediction[i].className + ": " + pct + "%";
+                if (barEl) barEl.style.width = pct + "%";
+            }
+        }
+    </script>
+
+</body>
+</html>
