@@ -8,239 +8,6 @@
     <link rel="stylesheet" href="stylepage.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <style>
-        .classifier-section {
-            max-width: 1150px;
-            margin: 40px auto;
-            padding: 45px 35px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .classifier-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-
-        .classifier-section p.subtext {
-            color: #64748b;
-            margin-bottom: 25px;
-            font-size: 1rem;
-        }
-
-        #start-btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 25px;
-        }
-
-        #start-btn:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        #webcam-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        #webcam-container canvas {
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        #label-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .label-row {
-            background: var(--gray);
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-weight: 500;
-            color: var(--dark);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.95rem;
-        }
-
-        .label-bar-wrap {
-            width: 100%;
-            background: #e2e8f0;
-            border-radius: 999px;
-            height: 8px;
-            margin-top: 6px;
-            overflow: hidden;
-        }
-
-        .label-bar {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 999px;
-            transition: width 0.3s ease;
-        }
-
-        .dataset-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .dataset-card {
-            flex: 1 1 250px;
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            text-align: center;
-        }
-
-        .dataset-card .icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .dataset-card h4 {
-            font-size: 1.1rem;
-            margin: 0 0 6px 0;
-            color: var(--dark);
-        }
-
-        .dataset-card p {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin: 0;
-        }
-
-        .statement-section {
-            max-width: 1150px;
-            margin: 40px auto;
-            padding: 45px 35px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            box-sizing: border-box;
-        }
-
-        .statement-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .links-section {
-            max-width: 1150px;
-            margin: 40px auto;
-            padding: 45px 35px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            box-sizing: border-box;
-        }
-
-        .links-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .link-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--gray);
-            font-size: 0.95rem;
-        }
-
-        .link-row:last-child { border-bottom: none; }
-
-        .link-row .link-icon { font-size: 1.3rem; flex-shrink: 0; }
-
-        .link-row a { color: var(--primary); font-weight: 500; }
-        .link-row a:hover { color: var(--accent); }
-
-        .placeholder-link { color: #94a3b8; font-style: italic; }
-
-        .member-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .member-card {
-            flex: 1 1 280px;
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .member-card h4 {
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
-            color: var(--dark);
-        }
-
-        .member-card p {
-            font-size: 0.9rem;
-            color: #64748b;
-            font-style: italic;
-            margin: 0;
-        }
-
-        .page-intro {
-            background: linear-gradient(135deg, #1E2937, #2d4a6e);
-            color: white;
-            padding: 60px 30px 50px;
-            text-align: center;
-        }
-
-        .page-intro h2 {
-            font-size: 2.2rem;
-            color: white;
-            margin-bottom: 12px;
-        }
-
-        .page-intro p {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .notice {
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            border-radius: 8px;
-            padding: 14px 20px;
-            color: #9a3412;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
 
@@ -269,9 +36,150 @@
         <p>A machine learning experiment classifying indoor lighting conditions — built with Google's Teachable Machine, TensorFlow.js, and 300 original images contributed by our group.</p>
     </div>
 
+    <!-- ===== WHAT THIS MODEL DOES ===== -->
+    <!-- Explains the classifier purpose and classes before users interact with the demo -->
+    <section>
+        <h2>What Does This Classifier Do?</h2>
+        <p>This model was trained to recognize <strong>three distinct indoor lighting conditions</strong> using a live webcam feed. Point your camera at a room and it will predict which lighting scenario is present in real time. The model was trained exclusively on original photos taken by our group — no internet images or AI-generated data.</p>
+
+        <!-- Visual comparison of the three lighting classes -->
+        <div class="lighting-examples" aria-label="Lighting condition examples">
+
+            <div class="lighting-card">
+                <!-- SVG icon: ceiling fixture and desk lamp both on -->
+                <div class="lighting-preview both" role="img" aria-label="Both lights on — bright warm scene">
+                    <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <!-- Ceiling light rays -->
+                        <line x1="25" y1="10" x2="20" y2="28" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="25" y1="10" x2="10" y2="22" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="25" y1="10" x2="30" y2="28" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <!-- Ceiling fixture -->
+                        <rect x="15" y="4" width="20" height="5" rx="2" fill="#94a3b8"/>
+                        <ellipse cx="25" cy="11" rx="10" ry="6" fill="#fef08a" stroke="#f59e0b" stroke-width="1.5"/>
+                        <!-- Desk lamp base -->
+                        <rect x="56" y="74" width="18" height="3" rx="1.5" fill="#475569"/>
+                        <rect x="63" y="55" width="3" height="20" rx="1.5" fill="#64748b"/>
+                        <!-- Lamp arm -->
+                        <line x1="64" y1="55" x2="72" y2="40" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Lamp shade -->
+                        <path d="M62 40 Q72 32 82 40 L78 50 Q72 46 66 50 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+                        <!-- Lamp glow -->
+                        <ellipse cx="72" cy="52" rx="10" ry="5" fill="#fef08a" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="lighting-card-body">
+                    <h4>Class 1 — Both Lights On</h4>
+                    <p>Brightest condition. Overhead ceiling light and desk lamp running simultaneously. Warm, even illumination throughout.</p>
+                </div>
+                <div class="example-images">
+                    <p class="example-label">Example photos from our dataset:</p>
+                    <div class="example-grid">
+                        <img src="images/lamp+overhead1.jpg" alt="Both lights on — example ">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lighting-card">
+                <!-- SVG icon: desk lamp on, ceiling fixture off -->
+                <div class="lighting-preview lamp-only" role="img" aria-label="Lamp only — warm directional glow">
+                    <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <!-- Ceiling fixture (dark/off) -->
+                        <rect x="30" y="4" width="20" height="5" rx="2" fill="#94a3b8"/>
+                        <ellipse cx="40" cy="11" rx="10" ry="6" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Desk lamp base -->
+                        <rect x="38" y="74" width="22" height="3" rx="1.5" fill="#475569"/>
+                        <rect x="47" y="52" width="3" height="23" rx="1.5" fill="#64748b"/>
+                        <!-- Lamp arm -->
+                        <line x1="48" y1="52" x2="58" y2="36" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Lamp shade -->
+                        <path d="M47 36 Q58 27 69 36 L65 47 Q58 43 51 47 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+                        <!-- Warm glow cone -->
+                        <path d="M51 47 Q58 58 65 47" fill="#fef9c3" opacity="0.6"/>
+                        <ellipse cx="58" cy="52" rx="13" ry="6" fill="#fef08a" opacity="0.45"/>
+                        <!-- Glow rays -->
+                        <line x1="58" y1="50" x2="40" y2="68" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+                        <line x1="58" y1="50" x2="58" y2="72" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+                        <line x1="58" y1="50" x2="76" y2="68" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+                    </svg>
+                </div>
+                <div class="lighting-card-body">
+                    <h4>Class 2 — Lamp Only</h4>
+                    <p>Warm, directional glow from a desk lamp. Overhead light is off. Darker corners, concentrated light source.</p>
+                </div>
+                <div class="example-images">
+                    <p class="example-label">Example photos from our dataset:</p>
+                    <div class="example-grid">
+                        <img src="images/lamp2.jpg" alt="Lamp only — example">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lighting-card">
+                <!-- SVG icon: ceiling fixture on with cool rays, lamp off -->
+                <div class="lighting-preview overhead-only" role="img" aria-label="Overhead only — cool flat light">
+                    <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <!-- Ceiling light rays (cool blue-white) -->
+                        <line x1="45" y1="18" x2="30" y2="45" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="45" y1="18" x2="45" y2="48" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="45" y1="18" x2="60" y2="45" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="45" y1="18" x2="20" y2="38" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                        <line x1="45" y1="18" x2="70" y2="38" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                        <!-- Ceiling fixture -->
+                        <rect x="33" y="4" width="24" height="5" rx="2" fill="#94a3b8"/>
+                        <ellipse cx="45" cy="13" rx="12" ry="7" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="1.5"/>
+                        <!-- Desk lamp (dark/off) -->
+                        <rect x="52" y="74" width="22" height="3" rx="1.5" fill="#475569"/>
+                        <rect x="61" y="55" width="3" height="20" rx="1.5" fill="#64748b"/>
+                        <line x1="62" y1="55" x2="70" y2="42" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M60 42 Q70 34 80 42 L77 51 Q70 47 63 51 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="lighting-card-body">
+                    <h4>Class 3 — Overhead Only</h4>
+                    <p>Cool, flat light from the ceiling fixture. Lamp is off. Even but cooler tone than the combined condition.</p>
+                </div>
+                <div class="example-images">
+                    <p class="example-label">Example photos from our dataset:</p>
+                    <div class="example-grid">
+                        <img src="images/overhead.jpg" alt="Overhead only — example">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== LIVE CLASSIFIER DEMO ===== -->
     <div class="classifier-section">
         <h2>🔦 Live Lighting Classifier</h2>
-        <p class="subtext">Allow camera access, then click Start to run the model in real time.</p>
+        <p class="subtext">Try the model yourself — point your camera at a lit room and see how it classifies the lighting condition.</p>
+
+        <!-- Step-by-step instructions for testing all three classes -->
+        <div class="how-to-steps" aria-label="Instructions for testing the classifier">
+            <div class="how-to-step">
+                <div class="step-num">1</div>
+                <p>Click <strong>Start Classifier</strong> and allow camera access when prompted.</p>
+            </div>
+            <div class="how-to-step">
+                <div class="step-num">2</div>
+                <p>Turn on <strong>both your overhead light and a lamp</strong> and point the camera at the room.</p>
+            </div>
+            <div class="how-to-step">
+                <div class="step-num">3</div>
+                <p>Switch to <strong>lamp only</strong> (overhead off) and watch the confidence bars shift.</p>
+            </div>
+            <div class="how-to-step">
+                <div class="step-num">4</div>
+                <p>Try <strong>overhead only</strong> (lamp off) — note the difference from the combined class.</p>
+            </div>
+        </div>
+
+        <!-- Privacy assurance before the webcam activates -->
+        <div class="privacy-notice" role="note">
+            <span class="notice-icon">🔒</span>
+            <span><strong>Your privacy is protected.</strong> This classifier runs entirely in your browser using TensorFlow.js. Your camera feed is never uploaded, stored, or used to retrain the model. No image data leaves your device.</span>
+        </div>
+
         <button id="start-btn" onclick="init()">Start Classifier</button>
         <div id="webcam-container"></div>
         <div id="label-container"></div>
@@ -302,32 +210,61 @@
     <section>
         <h2>Demo Video</h2>
         <p>Watch the classifier running live across all three lighting conditions.</p>
-        <div class="video-wrapper" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center; border-radius:12px; min-height:200px;">
-            <p style="color:#94a3b8; font-style:italic; padding:40px;">Video coming soon</p>
+        <div class="video-wrapper">
+            <video controls width="100%" style="border-radius:12px; display:block;">
+                <source src="demo-video.mp4" type="video/mp4">
+                <source src="demo-video.webm" type="video/webm">
+                <p style="color:#94a3b8; font-style:italic; padding:20px; text-align:center;">
+                    Your browser does not support the video tag.
+                    <a href="images/demovid.mp4">Download the demo video</a> instead.
+                </p>
+            </video>
         </div>
     </section>
 
+    <!-- ===== PROJECT STATEMENT ===== -->
+    <!-- 1000+ word academic reflection on Unmasking AI and this project — required by rubric -->
     <div class="statement-section">
         <h2>Project Statement</h2>
-        <p>Completing this assignment while reading Joy Buolamwini’s <em>Unmasking AI</em> transformed what could have been a purely technical exercise into a powerful exercise in ethical awareness. Several core lessons from the book struck us as we gathered our 300 original images, trained the model, and watched it classify live webcam input.</p>
-            
-            <p>The most immediate resonance came from Buolamwini’s personal encounter with the “coded gaze” in her Aspire Mirror project. She describes sitting at her MIT desk, using an open-source face-tracking library that simply refused to detect her dark-skinned face until she held a white costume mask in front of the camera. The bounding box appeared only when the mask was present; her own face remained invisible to the system. This moment, coding in “whiteface” just to make the technology work, revealed how even seemingly neutral software libraries encode the priorities and prejudices of their training data and creators.</p>
-            
-            <p>Our project forced us to confront the exact same dependency on data. Teachable Machine is marketed as accessible and code-free, yet its performance is 100% determined by the corpus we feed it. Because the assignment required <strong>original</strong> images only, we could not fall back on convenient internet datasets that often skew toward lighter skin tones, Western objects, or well-lit studio photography, the very biases Buolamwini critiques throughout the early chapters. By taking our own photos, we became responsible for the defaults. We quickly realized that “defaults are not neutral” (the title of Chapter 5). If one member had contributed only images taken in bright daylight and another only in dim dorm lighting, the model would have learned to favor certain conditions, potentially failing for users in different environments. We deliberately varied lighting, angles, and backgrounds to mitigate this, but the exercise made us viscerally understand Buolamwini’s warning: prejudice can be encoded unintentionally simply by whose realities are included (or excluded) in the data.</p>
-            
-            <p>This realization echoed her broader argument that AI reflects both the aspirations <em>and</em> the limitations of its makers. In the Introduction she writes that the coded gaze “describes the ways in which the priorities, preferences, and prejudices of those who have the power to shape technology can propagate harm, such as discrimination and erasure.” Our small group of students, none of us professional data scientists, were suddenly the “makers.” Choosing which objects to photograph, how many examples per class, and under what conditions meant we were shaping a miniature algorithmic system. The experience humbled us. We caught ourselves debating whether to include more “messy” real-world photos (a laptop with stickers, a leaf half-covered by snow) or to keep the dataset “clean.” Those conversations mirrored Buolamwini’s shift from idealistic dreamer in the “Future Factory” (Chapter 2) to curious critic.</p>
-            
-            <p>Another resonant thread was the labor and responsibility of data creation. Buolamwini notes how AI systems rely on “ghost work”, the unseen human labor of labeling and cleaning data, yet the people doing that work are often invisible and underpaid. By requiring 100 original contributions per person, the assignment made that labor visible to us. Taking 100 photos each took hours: planning shots, ensuring consistency, avoiding duplicates, and documenting conditions. We could not outsource it to the internet. This directly confronted Buolamwini’s call in the later sections of the Introduction to center the lives of everyday people and those at the margins when designing AI.</p>
-            
-            <p>The book also challenged us to consider whether we even <em>need</em> the AI system in the first place. Buolamwini repeatedly asks: “Do we need this AI system or this data in the first place, or does it allow us to direct money at inadequate technical Band-Aids without addressing much larger systemic societal issues?” Our model is fun and educational, but it is not solving poverty, discrimination, or climate change. It is a teaching tool. The assignment therefore became a microcosm of algorithmic justice: we had the option to say “no” to certain data-collection practices (no web downloads, no AI-generated fillers) and to document our decisions transparently on GitHub.</p>
-            
-            <p>As information science and data science students, we entered this project already interested in ethical technology and inclusive design. <em>Unmasking AI</em> gave us language and historical context. Buolamwini’s journey, from daughter of art and science (Chapter 1) to accidental advocate, mirrors the tension we feel: the thrill of building something that “just works” versus the responsibility to ensure it works <em>for everyone</em>. Watching our model confidently label a dimly lit notebook as “personal artifact” felt rewarding, but we kept returning to her white-mask moment. What if a future version of this technology were used for something higher-stakes, attendance tracking, accessibility aids, or content moderation? The same data-quality questions would apply at scale.</p>
-            
-            <p>In short, this assignment did not just teach us how to train an image classifier; it taught us that every dataset is a political act. The 300 original images we contributed are not neutral pixels, they are choices about representation. Buolamwini’s book made us see that the coded gaze is not an abstract academic concept but a daily reality that begins the moment we click “train.” We leave the project more committed to asking, before any model is built: Whose gaze is being coded in? Whose realities are being rendered invisible? And how can we, as future technologists, choose to unmask those biases before they become systemic harm?</p>
+        <p><em>What lessons from <strong>Unmasking AI</strong> are resonant for you as you complete this assignment?</em></p>
+
+        <p>When we set out to build a lighting condition classifier using Google's Teachable Machine, we expected a technical exercise. We did not expect to spend as much time thinking about what the project exposed about ourselves — our assumptions, our habits, our blind spots — as we did actually building it. Reading Joy Buolamwini's <em>Unmasking AI</em> alongside this process collapsed the distance between her research and our work in ways we did not anticipate. The book is not abstract theory. It is a forensic account of how bias gets baked into machine learning systems step by step, decision by decision, and our project replicated many of those same steps in miniature.</p>
+
+        <p>The most foundational lesson from <em>Unmasking AI</em> is that machine learning systems learn entirely from their training data, and that data is never neutral. As Buolamwini describes in Chapter 5, "Defaults Are Not Neutral," even the cameras used to capture training images inherit historical biases: the Shirley card, used to calibrate analog film cameras, was an image of a white woman, meaning that exposure settings were optimized for light skin and carried those defaults into subsequent digital technologies. She writes that default settings "often reflect the coded gaze — the preferences of those who have the power to choose what subjects to focus on." This history hit close to home for our project. Our classifier depends entirely on the way a camera interprets light. We were, without initially realizing it, building a system layered on top of imaging technology that has its own historical skews toward certain environments and lighting conditions.</p>
+
+        <p>That connection became concrete when we examined our own dataset. All 300 images in our training corpus were taken at night, indoors, under artificial light. This was not a deliberate methodological choice — it was a circumstantial one. The project was done late, and natural daylight was not available. But the result is a model with a significant blind spot: it has never encountered a window, sunlight, or the mixed natural-artificial lighting conditions that characterize most real rooms during the day. When we ran the trained classifier in daylight environments, confidence scores scattered unpredictably across all three classes. The model was not malfunctioning — it was doing exactly what it was trained to do, which was precisely the problem. This is what Buolamwini means in the Introduction when she argues that "AI reflects both the aspirations and the limitations of its makers." Our nighttime assumptions became the model's nighttime assumptions.</p>
+
+        <p>Buolamwini's own pivotal moment came when she was building the Aspire Mirror at MIT and discovered that an open-source face-tracking library could not detect her dark-skinned face at all. Only when she held a white Halloween mask over her face did a detection box appear on screen. She describes the experience as "coding in whiteface," and introduces the term "coded gaze" to describe how the priorities and prejudices of those who build technology propagate harm through the systems they create — not necessarily intentionally, but systematically. Our project does not involve faces, but the structural parallel is direct. Our classifier works well under the specific nighttime conditions it was trained on. Point it at a different environment — a room with natural light, a different lamp type, a different wall color — and confidence collapses. Like Buolamwini's face-tracking library, our model sees only the world it was shown.</p>
+
+        <p>This limitation also has an important practical dimension. The classifier functions reliably in specific situations: when the desk lamp is close to the camera and clearly visible, and when the overhead light is the dominant illumination source. At greater distances, or in rooms that differ from our training environments, the model struggles. "Class 1 — Both Lights On" and "Class 3 — Overhead Only" are frequently confused because both conditions share an overhead lighting component. Only the presence or absence of the lamp's warm, directional glow distinguishes them, and that distinction becomes subtle at camera distances of more than a few feet. This ambiguity is not a technical malfunction — it is a data failure. We did not capture enough variation in how "both lights on" looks distinct from "overhead only" across different distances, angles, and rooms. We built a model that learned our rooms, not the world.</p>
+
+        <p>Buolamwini's Gender Shades research, detailed in Chapter 11, is directly instructive here. When she tested IBM's, Microsoft's, and Face++'s gender classification systems using her Pilot Parliaments Benchmark — a dataset constructed to include darker-skinned parliamentarians from African countries alongside lighter-skinned parliamentarians from Nordic countries — she found accuracy gaps that aggregate performance metrics had entirely concealed. Microsoft achieved 100 percent accuracy on lighter-skinned males while performing at only 79.2 percent on darker-skinned females. IBM's gap between those same groups reached 34.4 percent, a disparity invisible in the headline figure of 87.9 percent overall accuracy. The systems were not broken; they had been evaluated on datasets that skewed toward the populations they performed best on. Our dataset has the same structural problem in a different domain. We evaluated our model under conditions similar to those in which it was trained, which made it appear more reliable than it is in practice.</p>
+
+        <p>Chapter 9, "Crawling Through Data," provided another uncomfortable mirror. Buolamwini describes the painstaking labor of constructing the Pilot Parliaments Benchmark — visiting government websites, hand-labeling 1,270 faces herself, wrestling with the ethics of using images without explicit consent. She references Mary Gray and Siddharth Suri's concept of "ghost work" to name the often invisible human labor that machine learning systems depend on. Our 300 images required real hours: planning shots, photographing, organizing, and uploading to Teachable Machine. That labor is what the model is. Strip away the TensorFlow.js interface and the animated confidence bars, and what remains is 300 photographs taken in dorm rooms and apartments late at night. Buolamwini's observation that "behind the headlines and slick marketing pages, so many of the advances in machine learning are dependent on labeled datasets" landed differently once we had done even this small amount of that work ourselves. The glamour of the demo is entirely built on the unglamorous effort of data collection.</p>
+
+        <p>Perhaps the sharpest lesson from <em>Unmasking AI</em> for our purposes comes from Buolamwini's framing of intersectionality as a methodological tool. Drawing on Kimberlé Crenshaw's framework, she argues that examining a single axis — gender alone, or skin type alone — will consistently produce a false sense of the progress an AI system has made. Single-axis analysis in Gender Shades hid the worst disparities, which only emerged when gender and skin tone were examined at their intersection simultaneously. Our project is simpler, but the same logic applies: analyzing whether our model works overall obscures the fact that it works well for one class (lamp only, which has the most visually distinct signature) and poorly for another (both lights on versus overhead only, which are frequently confused). Failure is not evenly distributed across the three classes, and reporting average performance would make the model appear more capable than it is for users in the conditions it handles worst.</p>
+
+        <p>There is a line in the Introduction that has stayed with us throughout this project. Buolamwini asks: "Do we need this AI system or this data in the first place, or does it allow us to direct money at inadequate technical Band-Aids without addressing much larger systemic societal issues?" Our classifier does not carry high stakes — it identifies desk lamps, not criminal suspects or mortgage applicants. But the question behind the question is what we carry away from building it. The value of this assignment is not the model itself. The value is what we learned about how models fail, whose assumptions get embedded in training data, and how easily a well-intentioned system becomes an unreliable one when the builders' circumstances — a late-night dorm room with one lamp and one overhead light — become the only world the model knows.</p>
+
+        <p>Reading <em>Unmasking AI</em> changed how we saw this project while we were building it. When we noticed the model confusing Classes 1 and 3, we thought about Buolamwini's observation that aggregate accuracy "can mask important performance differences between groups." When we added the privacy notice to the classifier page — assuring users their webcam feed never leaves their device — we were acting on her arguments in Chapter 9 about the ethics of data collection and the inadequacy of "lawful but awful" data practices. When we acknowledged in our limitations section that we have no external validation set, we were applying the lesson of Gender Shades: that testing only on familiar data creates a false sense of reliability. These are not grand gestures. But they are conscious ones, and that consciousness is what Buolamwini's book ultimately asks of its readers — not perfection, but a commitment to asking, before building anything, whose gaze is being coded in.</p>
+
+        <!-- Model limitations — grounded in actual observed classifier behavior -->
+        <div class="limitations-box">
+            <h3>&#x26A0;&#xFE0F; Known Limitations of Our Model</h3>
+            <ul>
+                <li><strong>Nighttime-only training data:</strong> All 300 images were taken after dark under artificial light. The model has no exposure to natural daylight or mixed natural-artificial conditions, and misclassifies them. This is a direct instance of the unexamined circumstantial default Buolamwini critiques in Chapter 5.</li>
+                <li><strong>Requires close framing and visible lamp:</strong> The classifier works most reliably when the desk lamp is close to the camera and clearly visible in frame. At distance, the warm directional cue becomes too subtle to detect reliably.</li>
+                <li><strong>Class 1 vs. Class 3 ambiguity:</strong> "Both lights on" and "overhead only" share an overhead ceiling-light component. Without a prominent lamp in frame, the model frequently assigns high confidence to the wrong class.</li>
+                <li><strong>Room-specific overfitting:</strong> Images were collected from a small number of similar indoor spaces. The model may perform poorly in rooms with different wall colors, lamp types, ceiling heights, or furniture arrangements not represented in the training data.</li>
+                <li><strong>Small dataset by industry standards:</strong> 300 images across three classes is far smaller than commercial classifiers, which typically train on millions of samples. Confidence scores should not be interpreted as certainties.</li>
+                <li><strong>No external validation set:</strong> We evaluated the model on conditions similar to our own training environments. As Buolamwini's Gender Shades research demonstrates, this is precisely what creates a false sense of reliability — genuine generalizability requires testing on data the model's builders did not collect themselves.</li>
+            </ul>
+        </div>
     </div>
 
     <div class="links-section">
         <h2>Links & References</h2>
+        <div class="link-row">
             <span class="link-icon"></span>
             <div>
                 <strong>Teachable Machine</strong><br>
@@ -342,88 +279,114 @@
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
-    <script>
-        // Teachable Machine Image Model — https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-        const URL = "https://teachablemachine.withgoogle.com/models/eGSKiv_X1/";
+    // the link to your model provided by Teachable Machine export panel
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/eWHpYpzf8/";
 
-        let model, webcam, labelContainer, maxPredictions;
+    let model, webcam, labelContainer, maxPredictions;
+    let isRunning = false;
+    let animFrameId = null;
 
-        // Load the image model and set up the webcam
-        async function init() {
-            const modelURL = URL + "model.json";
-            const metadataURL = URL + "metadata.json";
+    function resetBtn(label) {
+        const btn = document.getElementById("start-btn");
+        btn.disabled = false;
+        btn.textContent = label || "Start Classifier";
+    }
 
-            try {
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
+    function showError(msg) {
+        const container = document.getElementById("webcam-container");
+        container.innerHTML = `<p style="color:#dc2626;font-size:0.95rem;margin:0;">${msg}</p>`;
+    }
 
-                // Flip the webcam horizontally (mirror view)
-                const flip = true;
-                webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
-                await webcam.setup(); // request webcam access
-                await webcam.play();
-                window.requestAnimationFrame(loop);
+    // Load the image model and setup the webcam
+    async function init() {
+        if (isRunning) return;
+        isRunning = true;
 
-                // Append webcam canvas to the DOM
-                document.getElementById("webcam-container").appendChild(webcam.canvas);
+        const btn = document.getElementById("start-btn");
+        btn.disabled = true;
+        btn.textContent = "Loading…";
 
-                // Build styled label rows with progress bars
-                labelContainer = document.getElementById("label-container");
-                labelContainer.innerHTML = "";
-                for (let i = 0; i < maxPredictions; i++) {
-                    const row = document.createElement("div");
-                    row.className = "label-row";
-                    row.style.flexDirection = "column";
-                    row.style.alignItems = "flex-start";
+        try {
+            const modelURL = MODEL_URL + "model.json";
+            const metadataURL = MODEL_URL + "metadata.json";
 
-                    const nameSpan = document.createElement("span");
-                    nameSpan.id = "label-name-" + i;
-                    nameSpan.textContent = "Class " + (i + 1);
-
-                    const barWrap = document.createElement("div");
-                    barWrap.className = "label-bar-wrap";
-                    barWrap.style.width = "100%";
-
-                    const bar = document.createElement("div");
-                    bar.className = "label-bar";
-                    bar.id = "label-bar-" + i;
-                    bar.style.width = "0%";
-
-                    barWrap.appendChild(bar);
-                    row.appendChild(nameSpan);
-                    row.appendChild(barWrap);
-                    labelContainer.appendChild(row);
-                }
-
-                document.getElementById("start-btn").style.display = "none";
-
-            } catch (err) {
-                alert("Could not load model. Check the model URL or your internet connection.");
-                console.error(err);
-            }
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+        } catch (e) {
+            console.error("Model load failed:", e);
+            showError("⚠️ Could not load the model. Check your internet connection and try again.");
+            isRunning = false;
+            resetBtn("Retry");
+            return;
         }
 
-        // Update webcam frame and run prediction on each animation frame
-        async function loop() {
-            webcam.update(); // update the webcam frame
-            await predict();
-            window.requestAnimationFrame(loop);
+        try {
+            const flip = true;
+            webcam = new tmImage.Webcam(200, 200, flip);
+            await webcam.setup(); // requests camera permission
+            await webcam.play();
+        } catch (e) {
+            console.error("Webcam setup failed:", e);
+            const msg = e && e.name === "NotAllowedError"
+                ? "⚠️ Camera access was denied. Please allow camera permissions and try again."
+                : "⚠️ Could not access the camera. Make sure no other app is using it and try again.";
+            showError(msg);
+            isRunning = false;
+            resetBtn("Retry");
+            return;
         }
 
-        // Run the webcam image through the image model
-        async function predict() {
-            // predict() accepts an image, video, or canvas element
-            const prediction = await model.predict(webcam.canvas);
-            for (let i = 0; i < maxPredictions; i++) {
-                const pct = (prediction[i].probability * 100).toFixed(1);
-                const nameEl = document.getElementById("label-name-" + i);
-                const barEl = document.getElementById("label-bar-" + i);
-                if (nameEl) nameEl.textContent = prediction[i].className + ": " + pct + "%";
-                if (barEl) barEl.style.width = pct + "%";
-            }
+        // append webcam canvas
+        const webcamContainer = document.getElementById("webcam-container");
+        webcamContainer.innerHTML = "";
+        webcamContainer.appendChild(webcam.canvas);
+
+        // build label rows with progress bars
+        labelContainer = document.getElementById("label-container");
+        labelContainer.innerHTML = "";
+        for (let i = 0; i < maxPredictions; i++) {
+            const row = document.createElement("div");
+            row.className = "label-row";
+            row.innerHTML = `
+                <div style="width:100%">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span class="label-name">—</span>
+                        <span class="label-pct">0%</span>
+                    </div>
+                    <div class="label-bar-wrap"><div class="label-bar" style="width:0%"></div></div>
+                </div>`;
+            labelContainer.appendChild(row);
         }
-    </script>
+
+        btn.textContent = "Running";
+        animFrameId = window.requestAnimationFrame(loop);
+    }
+
+    async function loop() {
+        webcam.update();
+        await predict();
+        animFrameId = window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        const prediction = await model.predict(webcam.canvas);
+        const rows = labelContainer.querySelectorAll(".label-row");
+        for (let i = 0; i < maxPredictions; i++) {
+            const pct = Math.round(prediction[i].probability * 100);
+            const row = rows[i];
+            if (!row) continue;
+            row.querySelector(".label-name").textContent = prediction[i].className;
+            row.querySelector(".label-pct").textContent = pct + "%";
+            row.querySelector(".label-bar").style.width = pct + "%";
+        }
+    }
+</script>
+
 
 </body>
 </html>
